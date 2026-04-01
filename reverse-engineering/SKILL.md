@@ -14,6 +14,11 @@ description: >
 
 # Reverse Engineering & Debugging
 
+> ⚠️ **Disclaimer**: This skill is intended exclusively for authorized security research,
+> CTF challenges, academic study, and penetration testing with explicit written permission.
+> All techniques documented here are for defensive understanding and lawful use only.
+> The author is not responsible for any misuse of this material.
+
 Professional methodology for static analysis, dynamic analysis, debugging, and binary exploitation.
 
 ## Quick Reference — Load the Right Reference File
