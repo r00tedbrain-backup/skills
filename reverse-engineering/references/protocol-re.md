@@ -57,7 +57,7 @@ mitmdump -s intercept_script.py
 
 # Configure device:
 # HTTP proxy → your machine:8080
-# Install mitmproxy CA cert → http://mitm.it on device
+# Install mitmproxy CA cert → navigate to mitm.it on proxied device
 ```
 
 ```python
@@ -126,7 +126,7 @@ tshark -r capture.pcap -T fields -e tls.handshake.ja3
 # ja3.zone for lookup
 
 # HASSH — SSH fingerprinting
-# https://github.com/salesforce/hassh
+# HASSH fingerprinting: github.com/salesforce/hassh
 ```
 
 ---
@@ -238,7 +238,7 @@ grpcurl -plaintext localhost:50051 describe          # describe all
 grpcurl -plaintext -d '{"name":"test"}' localhost:50051 pkg.Service/Method
 
 # Intercept with mitmproxy (gRPC addon)
-mitmdump --mode reverse:http://localhost:50051 -p 50052 -s grpc_addon.py
+mitmdump --mode reverse:<LOCAL_GRPC_ENDPOINT> -p 50052 -s grpc_addon.py
 ```
 
 ---
@@ -270,7 +270,7 @@ adb push cert.der /sdcard/cert.cer
 # Configure proxy: Settings → Wi-Fi → (i) → HTTP Proxy → Manual
 # Host: your machine IP, Port: 8080
 
-# Install CA: navigate to http://mitm.it on device → install profile
+# Install CA: navigate to mitm.it on proxied device → install profile
 # Settings → General → Profile → install
 
 # For apps with cert pinning: Frida or SSL Kill Switch 2 (see references/ios-re.md)

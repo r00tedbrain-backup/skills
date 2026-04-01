@@ -438,17 +438,17 @@ print("Done. Review bookmarks in Format String category.")
 
 # GhidraNative (JNI helper for Android)
 # → Auto-labels Java_* functions with Java signatures
-# https://github.com/mobilesecurity96/GhidraNative
+# → github.com/mobilesecurity96/GhidraNative
 
 # Ret-Sync (sync with GDB/x64dbg while debugging)
 # → Cursor in Ghidra follows debugger execution in real time
-# https://github.com/bootleg/ret-sync
+# → github.com/bootleg/ret-sync
 
 # GhidraX86Deobfuscator (handle opaque predicates/junk code)
-# https://github.com/PAGalaxyLab/ghidra_scripts
+# → github.com/PAGalaxyLab/ghidra_scripts
 
 # OOAnalyzer (recover C++ classes/vtables)
-# https://github.com/cmu-sei/pharos
+# → github.com/cmu-sei/pharos
 
 # Capa integration (FLARE capa in Ghidra)
 # Identifies malware capabilities automatically

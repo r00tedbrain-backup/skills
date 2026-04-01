@@ -17,7 +17,7 @@
 
 ```bash
 # From vendor website (easiest)
-wget https://vendor.com/firmware/v1.2.bin
+wget <VENDOR_FIRMWARE_URL>   # replace with actual vendor download URL
 
 # From physical device - hardware methods:
 # 1. UART shell (if available)
@@ -166,7 +166,8 @@ qemu-system-arm -M virt \
   -device virtio-net-device,netdev=net0
 
 # FirmAE (automated firmware emulation)
-git clone https://github.com/pr0v3rbs/FirmAE
+# FirmAE — github.com/pr0v3rbs/FirmAE
+git clone <FIRMAE_REPO_URL>
 ./run.sh -r brand firmware.bin   # emulate + check web interface
 
 # Firmwalker (automated filesystem audit)
@@ -357,11 +358,11 @@ coap-client -m get coap://192.168.1.1/config
 
 # Shodan for IoT
 # shodan search "port:23 router" country:ES
-# Default creds DB: https://www.routerpasswords.com
+# Default creds DB: search "default router passwords" online
 
 # CVE scanning
 searchsploit "D-Link DIR-615"
-nuclei -target http://192.168.1.1 -t cves/ -t default-logins/
+nuclei -target <TARGET_IP> -t cves/ -t default-logins/
 ```
 
 ---
@@ -370,7 +371,7 @@ nuclei -target http://192.168.1.1 -t cves/ -t default-logins/
 
 ```bash
 # BinDiff (binary-level diffing, Ghidra plugin)
-# Install: https://www.zynamics.com/bindiff.html
+# Install: search "BinDiff download" — Zynamics/Google product
 # Use: Ghidra → File → Export → BinExport → compare two versions
 
 # bindiff CLI

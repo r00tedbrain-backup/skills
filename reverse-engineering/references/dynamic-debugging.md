@@ -108,7 +108,7 @@ set history size 10000
 ### pwndbg (recommended for pwn/RE)
 ```bash
 pip install pwndbg
-# or: git clone https://github.com/pwndbg/pwndbg && ./setup.sh
+# or: git clone <PWNDBG_REPO> && ./setup.sh  (github.com/pwndbg/pwndbg)
 
 # Key commands added:
 context          # show full context (regs, stack, code, backtrace)
@@ -127,7 +127,8 @@ search -s "flag" # search memory for string
 
 ### GEF (GDB Enhanced Features)
 ```bash
-bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+# Install GEF: visit gef.blah.cat for install instructions
+# bash -c "$(curl -fsSL <GEF_INSTALL_URL>)"
 
 # Key commands:
 gef               # show all custom commands
@@ -141,7 +142,8 @@ xinfo 0x401234         # cross-info about address
 
 ### PEDA (Python Exploit Development Assistance)
 ```bash
-git clone https://github.com/longld/peda.git
+# PEDA — github.com/longld/peda
+git clone <PEDA_REPO_URL>
 echo "source ~/peda/peda.py" >> ~/.gdbinit
 
 pattern create 200     # cyclic De Bruijn pattern

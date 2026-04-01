@@ -230,7 +230,7 @@ Hardware fingerprinting:
 # Use VM with VirtualKD or kdnet
 
 # WinDbg symbols (partial, public PDB sometimes available)
-.sympath+ srv*https://msdl.microsoft.com/download/symbols
+.sympath+ srv*<MS_SYMBOL_SERVER>   # msdl.microsoft.com/download/symbols
 .reload /f vgk.sys
 lm m vgk
 x vgk!*   # list symbols

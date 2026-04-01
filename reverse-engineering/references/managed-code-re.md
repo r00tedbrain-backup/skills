@@ -73,7 +73,7 @@ EOF target.exe
 ## 2. dnSpy Advanced {#dnspy}
 
 ```
-Download: https://github.com/dnSpyEx/dnSpy (active fork)
+Download: github.com/dnSpyEx/dnSpy (active fork)
 
 # Power features:
 
@@ -306,7 +306,7 @@ public class Patcher extends ClassVisitor {
 
 ### recaf — Modern Java RE Tool
 ```bash
-# Recaf: https://github.com/Col-E/Recaf
+# Recaf: github.com/Col-E/Recaf
 # Features:
 # - Decompile + edit in GUI
 # - Bytecode hex editor
@@ -404,7 +404,7 @@ Il2CppInspector -i GameAssembly.dll -m global-metadata.dat \
 
 # Runtime analysis with Frida + Il2CppDumper
 # frida-il2cpp-bridge: hook IL2CPP methods by class/method name
-# https://github.com/vfsfitvnm/frida-il2cpp-bridge
+# → github.com/vfsfitvnm/frida-il2cpp-bridge
 ```
 
 ```javascript

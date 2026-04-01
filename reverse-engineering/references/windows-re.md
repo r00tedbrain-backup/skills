@@ -93,7 +93,7 @@ if overlay_off:
 ### Setup
 ```
 Download: WinDbg Preview (Microsoft Store) or WDK
-Symbols: .sympath srv*C:\symbols*https://msdl.microsoft.com/download/symbols
+Symbols: .sympath srv*C:\symbols*<MS_SYMBOL_SERVER>   # msdl.microsoft.com/download/symbols
          .reload /f
 ```
 
@@ -248,7 +248,7 @@ dbg.Run()
 
 ### dnSpy — Primary Tool
 ```
-Download: https://github.com/dnSpy/dnSpy (or dnSpyEx fork)
+Download: github.com/dnSpy/dnSpy (or dnSpyEx fork)
 
 Workflow:
 1. File → Open → target.exe / .dll
@@ -498,6 +498,6 @@ cuckoo web  # view reports at localhost:8000
 # Clean snapshot every run
 
 # FLARE-VM setup (automated Windows RE environment)
-# https://github.com/mandiant/flare-vm
+# FLARE-VM: github.com/mandiant/flare-vm
 # Installs: x64dbg, Ghidra, dnSpy, Sysinternals, de4dot, PEiD, etc.
 ```
