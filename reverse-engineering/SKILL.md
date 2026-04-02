@@ -35,7 +35,7 @@ Professional methodology for static analysis, dynamic analysis, debugging, and b
 | .NET IL, dnSpy, de4dot, Java/JVM, Kotlin, Unity/IL2CPP, Mono | `references/managed-code-re.md` |
 | Malware, obfuscation, packer analysis, IOC extraction, Volatility | `references/malware-analysis.md` |
 | CTF pwn/rev, BOF, ROP, heap exploitation, pwntools, angr/Z3 | `references/exploit-dev.md` |
-| Network protocol RE, Wireshark, mitmproxy, Protobuf, gRPC, mobile MITM | `references/protocol-re.md` |
+| Network protocol RE, Wireshark, mitmproxy, Protobuf, gRPC, Lua dissectors, Boofuzz | `references/protocol-re.md` |
 | Firmware, binwalk, QEMU emulation, JTAG/UART, U-Boot, IoT | `references/firmware-embedded.md` |
 | EAC, BattlEye, Vanguard, FACEIT, VAC, kernel AC analysis | `references/anticheat-re.md` |
 | Ghidra Python/Java scripts, headless, vulnerability finding, custom analyzers | `references/ghidra-scripting.md` |

@@ -34,7 +34,7 @@ npx skills add r00tedbrain-backup/skills
 | **Managed Code** | `references/managed-code-re.md` | .NET IL, dnSpy, de4dot, Java/JVM, Kotlin, Unity/IL2CPP |
 | **Malware Analysis** | `references/malware-analysis.md` | Obfuscation, packer analysis, IOC extraction, Volatility |
 | **Exploit Development** | `references/exploit-dev.md` | BOF, ROP, heap exploitation, pwntools, angr, Z3 |
-| **Protocol RE** | `references/protocol-re.md` | Wireshark, mitmproxy, Protobuf, gRPC, mobile MITM |
+| **Protocol RE** | `references/protocol-re.md` | Wireshark, mitmproxy, Protobuf, gRPC, Lua dissectors, Boofuzz fuzzing |
 | **Firmware & IoT** | `references/firmware-embedded.md` | binwalk, QEMU emulation, JTAG/UART, U-Boot |
 | **Anti-Cheat RE** | `references/anticheat-re.md` | EAC, BattlEye, Vanguard, FACEIT, VAC, kernel AC |
 | **Ghidra Scripting** | `references/ghidra-scripting.md` | Python/Java scripts, headless mode, custom analyzers |
