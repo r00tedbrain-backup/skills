@@ -1,5 +1,9 @@
 # Managed Code Reverse Engineering (.NET / Java / JVM)
 
+> **Authorized use only.** For analyzing managed-code applications you own,
+> for interoperability research, academic study, or authorized security
+> assessments. Respect the licensing terms of all analyzed software.
+
 ## Table of Contents
 1. [.NET IL Internals](#il)
 2. [dnSpy Advanced](#dnspy)
@@ -109,13 +113,12 @@ Extensions → Open Assembly Diff → compare two versions
 
 ### Patching .NET via IL Manipulation
 ```csharp
-// Scenario: method returns false for license check
+// Scenario: understanding how a boolean configuration flag is evaluated
 // IL view shows:
-// ldsfld bool LicenseManager::_licensed
+// ldsfld bool ConfigManager::_flag
 // ret
 // 
-// Patch: force return true
-// Change to:
+// For research purposes, IL can be edited to observe alternative branches:
 // ldc.i4.1    (load constant 1 = true)
 // ret
 

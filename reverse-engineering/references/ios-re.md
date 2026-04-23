@@ -1,5 +1,11 @@
 # iOS Reverse Engineering Reference
 
+> **Authorized use only.** This reference documents iOS analysis techniques for:
+> authorized security research, app-security assessments with written permission,
+> academic study, bug bounty programs, and analysis of applications you own.
+> Do NOT use these techniques on applications you do not have explicit permission
+> to analyze. Respect Apple's terms of service and applicable laws.
+
 ## Table of Contents
 1. [IPA Triage](#triage)
 2. [Mach-O Analysis](#macho)

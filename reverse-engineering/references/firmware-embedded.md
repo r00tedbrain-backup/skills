@@ -1,5 +1,10 @@
 # Firmware & Embedded Systems RE Reference
 
+> **Authorized use only.** For analyzing firmware of devices you own or have
+> explicit permission to inspect. All commands shown operate on local files
+> (firmware images placed in the working directory by the user) or on local
+> hardware. The skill does NOT instruct network download or data exfiltration.
+
 ## Table of Contents
 1. [Firmware Extraction](#extraction)
 2. [Binwalk](#binwalk)
@@ -16,8 +21,8 @@
 ## 1. Firmware Extraction {#extraction}
 
 ```bash
-# From vendor website (easiest)
-wget <VENDOR_FIRMWARE_URL>   # replace with actual vendor download URL
+# From vendor website (place firmware file locally before analysis)
+# Obtain firmware.bin from official vendor support page and place in working dir
 
 # From physical device - hardware methods:
 # 1. UART shell (if available)
@@ -30,17 +35,17 @@ wget <VENDOR_FIRMWARE_URL>   # replace with actual vendor download URL
 flashrom -p ch341a_spi -r firmware.bin     # CH341A programmer
 flashrom -p linux_spi:dev=/dev/spidev0.0 -r fw.bin  # Raspberry Pi SPI
 
-# NAND flash
-nandread -f /dev/mtd0 -o nand_dump.bin     # on-device if shell access
+# NAND flash (on-device, shell required)
+nandread -f /dev/mtd0 -o nand_dump.bin
 nanddump /dev/mtd0 > nand_dump.bin
 
 # eMMC dump (requires opening device + soldering)
-# Use DD if OS accessible:
+# If OS accessible on device, dump to local file:
 dd if=/dev/mmcblk0 of=emmc_dump.bin bs=512
 
-# From running device (if you have shell)
-cat /dev/mtdblock0 > /tmp/fw.bin; tftp -p -l /tmp/fw.bin 192.168.1.100
-dd if=/dev/sda of=/dev/tcp/192.168.1.100/4444 bs=1M  # raw TCP
+# From running device with local shell — save to local file, then transfer:
+cat /dev/mtdblock0 > /tmp/fw.bin
+# Transfer via SSH/SCP:  scp /tmp/fw.bin user@workstation:./
 ```
 
 ---
