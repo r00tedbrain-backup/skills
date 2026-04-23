@@ -38,6 +38,10 @@ npx skills add r00tedbrain-backup/skills
 | **Firmware & IoT** | `references/firmware-embedded.md` | binwalk, QEMU emulation, JTAG/UART, U-Boot |
 | **Anti-Cheat RE** | `references/anticheat-re.md` | EAC, BattlEye, Vanguard, FACEIT, VAC, kernel AC |
 | **Ghidra Scripting** | `references/ghidra-scripting.md` | Python/Java scripts, headless mode, custom analyzers |
+| **IDAPython & IDALib** | `references/idapython.md` | 800+ lines of scripts: common API, Hex-Rays, Appcall, OLLVM, headless batch |
+| **Unicorn Emulation** | `references/unicorn-emulation.md` | Function-level emulation, JNI stubbing, syscall sim, decryption |
+| **Symbol Recovery** | `references/symbol-recovery.md` | Magic number catalog, paired call patterns, xref analysis |
+| **Struct Recovery** | `references/struct-recovery.md` | C++ vtables, std::string/vector/map layouts, field type inference |
 
 ### Triggers
 
@@ -71,7 +75,11 @@ skills/
         ├── protocol-re.md
         ├── firmware-embedded.md
         ├── anticheat-re.md
-        └── ghidra-scripting.md
+        ├── ghidra-scripting.md
+        ├── idapython.md
+        ├── unicorn-emulation.md
+        ├── symbol-recovery.md
+        └── struct-recovery.md
 ```
 
 ## License

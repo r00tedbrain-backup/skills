@@ -39,6 +39,10 @@ Professional methodology for static analysis, dynamic analysis, debugging, and b
 | Firmware, binwalk, QEMU emulation, JTAG/UART, U-Boot, IoT | `references/firmware-embedded.md` |
 | EAC, BattlEye, Vanguard, FACEIT, VAC, kernel AC analysis | `references/anticheat-re.md` |
 | Ghidra Python/Java scripts, headless, vulnerability finding, custom analyzers | `references/ghidra-scripting.md` |
+| IDAPython / IDALib scripts, Hex-Rays API, batch decompile, OLLVM helpers | `references/idapython.md` |
+| Unicorn engine emulation, function-level emulation, JNI stubbing, syscall sim | `references/unicorn-emulation.md` |
+| Stripped symbol recovery, magic numbers, paired calls, xref analysis | `references/symbol-recovery.md` |
+| C/C++ structure recovery, vtables, std::string/vector/map, field type inference | `references/struct-recovery.md` |
 
 ---
 
@@ -65,6 +69,13 @@ checksec --file=<binary>  # NX, PIE, RELRO, stack canary, ASLR
 - .sys driver → `references/windows-re.md` (kernel section) or `references/anticheat-re.md`
 - Assembly-CSharp.dll → Unity → `references/managed-code-re.md` (Unity section)
 - Unknown/firmware → `references/firmware-embedded.md` (binwalk + entropy)
+
+**Task-type decision tree (applies to any format):**
+- Stripped binary, unknown functions → `references/symbol-recovery.md`
+- Unknown struct layouts in decompilation → `references/struct-recovery.md`
+- Need to run just one function in isolation → `references/unicorn-emulation.md`
+- Using IDA Pro for analysis → `references/idapython.md`
+- Using Ghidra for analysis → `references/ghidra-scripting.md`
 
 ### 2. Establish Scope
 
