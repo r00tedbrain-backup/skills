@@ -1,0 +1,44 @@
+{
+  "_comment": "Drop-in snippets for OpenCode MCP config. Original work — MIT.",
+  "_doc": "https://opencode.ai/docs/mcp-servers",
+  "_location": "opencode.json (or opencode.jsonc) at the project root, OR ~/.config/opencode/config.json for global",
+  "_usage": "Merge these entries under the top-level mcp key. Adapt URLs/ports if your servers print different ones. Set enabled:false to keep an entry but disable it.",
+  "_format_note": "OpenCode uses 'type: local' (stdio command) or 'type: remote' (HTTP/SSE URL).",
+
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "ida-pro": {
+      "type": "remote",
+      "url": "http://127.0.0.1:13338/sse",
+      "enabled": true
+    },
+    "ghidra": {
+      "type": "remote",
+      "url": "http://127.0.0.1:8080/sse",
+      "enabled": true
+    },
+    "r2": {
+      "type": "local",
+      "command": ["r2mcp"],
+      "enabled": true
+    }
+  },
+
+  "_optional_tool_gating_example": "Uncomment the 'tools' block below to disable these MCPs globally and only enable them for a specific RE agent.",
+  "_tools_example": {
+    "tools": {
+      "ida-pro*": false,
+      "ghidra*": false,
+      "r2*": false
+    },
+    "agent": {
+      "reverse-engineering": {
+        "tools": {
+          "ida-pro*": true,
+          "ghidra*": true,
+          "r2*": true
+        }
+      }
+    }
+  }
+}

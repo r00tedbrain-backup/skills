@@ -1,0 +1,28 @@
+{
+  "_comment": "Drop-in snippets for Cline MCP config. Original work — MIT.",
+  "_location_macos": "~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json",
+  "_location_linux": "~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json",
+  "_location_windows": "%APPDATA%\\Code\\User\\globalStorage\\saoudrizwan.claude-dev\\settings\\cline_mcp_settings.json",
+  "_usage": "Cline (VS Code extension) uses the same MCP server format as Claude Desktop. Merge entries under the top-level mcpServers key. Restart VS Code after editing.",
+
+  "mcpServers": {
+    "ida-pro": {
+      "transport": "sse",
+      "url": "http://127.0.0.1:13338/sse",
+      "disabled": false,
+      "autoApprove": []
+    },
+    "ghidra": {
+      "transport": "sse",
+      "url": "http://127.0.0.1:8080/sse",
+      "disabled": false,
+      "autoApprove": []
+    },
+    "r2": {
+      "command": "r2mcp",
+      "args": [],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

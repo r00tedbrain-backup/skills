@@ -15,10 +15,35 @@ The Model Context Protocol (MCP) lets an AI agent (Claude Code, Cursor, Continue
 When MCP is connected, the agent uses live queries instead of relying on pre-exported files (the `decompile/` directory pattern). Both modes are valid — use whichever fits your workflow.
 
 ## How this directory is organized
-- [`ida-pro-mcp.md`](./ida-pro-mcp.md) — install + configure `mrexodia/ida-pro-mcp` for Claude Code, Cursor, Continue
-- [`ghidra-mcp.md`](./ghidra-mcp.md) — install + configure `LaurieWired/GhidraMCP`
-- [`claude-config-snippets.json`](./claude-config-snippets.json) — drop-in Claude Code config blocks
-- [`cursor-config-snippets.json`](./cursor-config-snippets.json) — drop-in Cursor config blocks
+
+**Server install guides:**
+- [`ida-pro-mcp.md`](./ida-pro-mcp.md) — install + configure `mrexodia/ida-pro-mcp` (MIT)
+- [`ghidra-mcp.md`](./ghidra-mcp.md) — install + configure `LaurieWired/GhidraMCP` (Apache)
+
+**Drop-in client config snippets** (one per agent):
+| Agent | File | Config location |
+|---|---|---|
+| Claude Code | [`claude-config-snippets.json`](./claude-config-snippets.json) | `~/.config/claude/mcp.json` (Linux) / `~/Library/Application Support/Claude/mcp.json` (macOS) |
+| Cursor | [`cursor-config-snippets.json`](./cursor-config-snippets.json) | Cursor → Settings → MCP → Edit JSON |
+| OpenCode | [`opencode-config-snippets.json`](./opencode-config-snippets.json) | `opencode.json` at project root, or `~/.config/opencode/config.json` |
+| Continue | [`continue-config-snippets.json`](./continue-config-snippets.json) | `~/.continue/config.yaml` (newer) or `config.json` (legacy) |
+| Cline | [`cline-config-snippets.json`](./cline-config-snippets.json) | VS Code globalStorage path (per OS, see file) |
+| Windsurf | [`windsurf-config-snippets.json`](./windsurf-config-snippets.json) | `~/.codeium/windsurf/mcp_config.json` |
+
+For other agents (Codex, Gemini CLI, Qwen Code, Roo Code, Kilo Code, Trae, Zencoder, Continue, Junie, Kiro CLI, Pi, Antigravity, Mux, OpenHands, Pochi, etc.), the format is almost always one of these three patterns:
+
+```jsonc
+// Pattern A — Claude-Desktop style (most common)
+{ "mcpServers": { "<name>": { "transport": "sse", "url": "..." } } }
+
+// Pattern B — OpenCode style
+{ "mcp": { "<name>": { "type": "remote", "url": "..." } } }
+
+// Pattern C — array style (Continue legacy)
+{ "modelContextProtocolServers": [ { "name": "...", "transport": {...} } ] }
+```
+
+If your agent isn't listed, copy the pattern that matches its docs and adapt the URLs from any of the snippets above.
 
 ## Quick decision: MCP or file-based export?
 

@@ -1,0 +1,19 @@
+{
+  "_comment": "Drop-in snippets for Windsurf MCP config. Original work — MIT.",
+  "_doc": "https://docs.codeium.com/windsurf/mcp",
+  "_location": "~/.codeium/windsurf/mcp_config.json",
+  "_usage": "Windsurf (Codeium) uses Claude-Desktop-style MCP config. Merge entries under the top-level mcpServers key. Restart Windsurf after editing. Open the Cascade panel and click the hammer icon to verify servers loaded.",
+
+  "mcpServers": {
+    "ida-pro": {
+      "serverUrl": "http://127.0.0.1:13338/sse"
+    },
+    "ghidra": {
+      "serverUrl": "http://127.0.0.1:8080/sse"
+    },
+    "r2": {
+      "command": "r2mcp",
+      "args": []
+    }
+  }
+}

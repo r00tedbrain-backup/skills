@@ -1,0 +1,33 @@
+{
+  "_comment": "Drop-in snippets for Continue MCP config. Original work — MIT.",
+  "_doc": "https://docs.continue.dev/customize/deep-dives/mcp",
+  "_location": "~/.continue/config.yaml (preferred) OR ~/.continue/config.json (legacy)",
+  "_usage": "Continue uses YAML-style config in newer versions. The JSON below shows the structure; convert to YAML if your install requires it. Merge under the top-level mcpServers key.",
+
+  "experimental": {
+    "modelContextProtocolServers": [
+      {
+        "transport": {
+          "type": "sse",
+          "url": "http://127.0.0.1:13338/sse"
+        },
+        "name": "ida-pro"
+      },
+      {
+        "transport": {
+          "type": "sse",
+          "url": "http://127.0.0.1:8080/sse"
+        },
+        "name": "ghidra"
+      },
+      {
+        "transport": {
+          "type": "stdio",
+          "command": "r2mcp",
+          "args": []
+        },
+        "name": "r2"
+      }
+    ]
+  }
+}
