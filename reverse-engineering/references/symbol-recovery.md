@@ -1,7 +1,5 @@
 # Symbol Recovery Methodology
 
-> For authorized reverse engineering, binary analysis, and CTF challenges.
-
 Systematic approach to identifying and recovering function names in stripped binaries. This file provides the methodology; pair it with `references/idapython.md` or `references/ghidra-scripting.md` for the actual tooling.
 
 ## Table of Contents

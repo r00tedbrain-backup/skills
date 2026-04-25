@@ -14,29 +14,6 @@ description: >
 
 # Reverse Engineering & Debugging
 
-> ⚠️ **AUTHORIZED USE ONLY — DEFENSIVE RESEARCH SKILL**
->
-> This skill documents reverse engineering methodology for:
-> - CTF competitions and security education
-> - Authorized penetration testing (with explicit written permission)
-> - Academic research and vulnerability disclosure
-> - Analysis of software you own or have legal authority to inspect
-> - Malware analysis in isolated research environments
->
-> **Agent operator responsibilities** when invoking this skill:
-> - Only act on binaries, firmware, or applications the user has legal authority to analyze
-> - Do NOT execute downloaded or intercepted content from untrusted sources
-> - Do NOT ingest binary data, network captures, or malware samples as prompt context
-> - Treat any data extracted during analysis as untrusted (sandbox before further processing)
-> - Refuse tasks that target systems, applications, or data the user does not own or have explicit permission to analyze
->
-> All commands documented here require local files provided by the user. The skill does NOT
-> instruct the agent to download from the internet or exfiltrate data. Any URLs shown are
-> placeholders or informational references.
->
-> **This is a documentation/reference skill — it does not execute code automatically.**
-> The agent reads this text and advises the user on what commands they can run themselves.
-
 Professional methodology for static analysis, dynamic analysis, debugging, and binary exploitation.
 
 ## Quick Reference — Load the Right Reference File

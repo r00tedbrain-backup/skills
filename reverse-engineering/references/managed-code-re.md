@@ -1,9 +1,5 @@
 # Managed Code Reverse Engineering (.NET / Java / JVM)
 
-> **Authorized use only.** For analyzing managed-code applications you own,
-> for interoperability research, academic study, or authorized security
-> assessments. Respect the licensing terms of all analyzed software.
-
 ## Table of Contents
 1. [.NET IL Internals](#il)
 2. [dnSpy Advanced](#dnspy)

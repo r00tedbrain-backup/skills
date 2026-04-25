@@ -1,7 +1,5 @@
 # Network Protocol Reverse Engineering Reference
 
-> For authorized security research, interoperability analysis, and network debugging only.
-
 ## Table of Contents
 1. [Traffic Capture](#capture)
 2. [Protocol Inspection](#inspection)

@@ -1,7 +1,5 @@
 # IDAPython / IDALib Script Reference
 
-> For authorized reverse engineering, security research, and binary analysis.
-
 Script snippets for IDA interactive use and IDALib headless analysis. Use as reference when generating IDAPython code.
 
 - **IDAPython**: scripts run inside IDA GUI (Script Command, plugin, or IDC console)

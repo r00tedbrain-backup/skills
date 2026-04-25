@@ -17,10 +17,6 @@
 //      for its DexCache entries — a more reliable path on packed apps where
 //      the in-memory DEX has been rewritten or relocated.
 //
-// Authorized use only
-//   For analyzing applications you own, applications under bug-bounty scope
-//   with written permission, or your own QA / interoperability research.
-//
 // Usage
 //   1. Push a frida-server matching your device's ABI to the device and run it
 //      (frida-server is Apache 2.0; download a release matching your Android).

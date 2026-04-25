@@ -63,6 +63,3 @@ You should see live decompilation — not a generic explanation.
 | You want to leverage Ghidra Scripts headlessly | You want full IDA scripting via IDAPython |
 
 Both are fully supported by our skill (`references/ghidra-scripting.md` and `references/idapython.md`).
-
-## Authorization reminder
-Same caveats as IDA: the agent gets the same write capabilities as a Ghidra user. Only attach to projects you have explicit permission to analyze.

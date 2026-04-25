@@ -1,7 +1,5 @@
 # Unicorn Engine — Function Emulation Reference
 
-> For authorized reverse engineering, algorithm analysis, and CTF challenges.
-
 Emulate specific code fragments or functions using the Unicorn engine. Useful for:
 
 - Running a single function outside the context of its full binary

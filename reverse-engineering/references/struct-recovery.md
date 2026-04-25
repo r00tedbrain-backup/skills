@@ -1,7 +1,5 @@
 # C/C++ Structure Recovery Methodology
 
-> For authorized reverse engineering, binary analysis, and CTF challenges.
-
 Systematic approach to reconstructing C/C++ data structures from decompiled code. This file provides the methodology; pair it with `references/idapython.md` or `references/ghidra-scripting.md` for tooling.
 
 ## Table of Contents

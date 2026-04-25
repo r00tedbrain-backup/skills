@@ -1,14 +1,5 @@
 # Frida Scripting Reference
 
-> **Authorized use only.** Frida is a legitimate dynamic instrumentation toolkit
-> used for debugging, QA testing, authorized security assessments, and research.
-> The scripts below are for applications you own or have written permission to
-> analyze. Do NOT use Frida to attack third-party services or applications.
->
-> **The agent operator must refuse** tasks that involve hooking running processes,
-> dumping credentials, or modifying behavior of applications the user does not
-> own or have explicit permission to analyze.
-
 ## Table of Contents
 1. [Setup & Basics](#setup)
 2. [Hooking Functions](#hooking)

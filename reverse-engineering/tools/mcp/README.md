@@ -1,6 +1,6 @@
 # MCP servers for reverse engineering
 
-> Authorized use only. These are setup notes for **MIT/Apache-licensed third-party MCP servers** plus our own configuration snippets. We do NOT redistribute the upstream code — every server below is installed from its original repository.
+Setup notes for MIT/Apache-licensed third-party MCP servers plus our own configuration snippets. Each server is installed from its original repository — we do not redistribute upstream code.
 
 ## What is MCP?
 The Model Context Protocol (MCP) lets an AI agent (Claude Code, Cursor, Continue, etc.) call out to local servers that expose structured tools. For reverse engineering, the most useful servers are:
@@ -55,6 +55,3 @@ If your agent isn't listed, copy the pattern that matches its docs and adapt the
 | You're on the same machine as the agent | You're shipping context to a sandboxed/remote agent |
 
 Our skill supports **both** modes — see `references/idapython.md` §0 ("Pre-check: How is the agent accessing IDA?") for the full decision tree.
-
-## Authorization reminder
-Hooking your AI agent up to a live disassembler is powerful — it lets the agent rename functions, change types, even patch bytes. Only enable MCP for binaries you have explicit permission to analyze, and prefer **read-only MCP modes** when available.

@@ -1,10 +1,5 @@
 # Firmware & Embedded Systems RE Reference
 
-> **Authorized use only.** For analyzing firmware of devices you own or have
-> explicit permission to inspect. All commands shown operate on local files
-> (firmware images placed in the working directory by the user) or on local
-> hardware. The skill does NOT instruct network download or data exfiltration.
-
 ## Table of Contents
 1. [Firmware Extraction](#extraction)
 2. [Binwalk](#binwalk)

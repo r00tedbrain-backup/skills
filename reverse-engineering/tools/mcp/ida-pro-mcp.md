@@ -79,13 +79,6 @@ The agent should respond with live data — not generic descriptions. If you see
 - `ida-pro-mcp` gives the agent **a way to look for it** in real time.
 - When MCP is unavailable, our `tools/ida_export_plugin.py` produces the same analytical surface as a directory of plain-text files.
 
-## Authorization reminder
-Live MCP access lets the agent **modify your IDB** — rename, retype, comment, even patch bytes. Treat the agent as a privileged user:
-
-- Use a **read-only** MCP mode if the upstream supports one for sensitive analyses.
-- Snapshot or copy the IDB before exposing it.
-- Only enable on binaries you have explicit permission to analyze.
-
 ## Troubleshooting
 
 | Symptom | Likely cause |

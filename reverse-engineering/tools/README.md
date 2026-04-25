@@ -32,16 +32,6 @@ Use [`dex_memory_dumper.js`](./dex_memory_dumper.js) with Frida — see the head
 ### "I want to set up multiple disassembler MCP servers at once"
 Open [`mcp/claude-config-snippets.json`](./mcp/claude-config-snippets.json) (or the Cursor equivalent), copy the entries you want into your agent's MCP config, restart the agent.
 
-## Authorization reminder
-
-Every tool here is for **authorized analysis only** — applications you own, programs under written-permission bug-bounty scope, your own QA / interoperability research, malware in isolated lab environments, and CTF challenges.
-
-Hooking an AI agent up to a live disassembler or to a Frida session inside a running app gives it broad read/write capability over your analysis. Treat it as a privileged user:
-
-- Use **read-only** MCP modes when the upstream supports them.
-- Snapshot or copy IDBs/Ghidra projects before exposing them.
-- Never enable any of these on systems or applications you don't have explicit permission to analyze.
-
 ## License
 
 All original code in this directory is MIT-licensed. Third-party MCP servers and plugins are governed by their own upstream licenses (linked from each `mcp/*.md` file). We do not modify or redistribute that upstream code.
