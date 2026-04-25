@@ -62,6 +62,18 @@ Professional methodology for static analysis, dynamic analysis, debugging, and b
 | Stripped symbol recovery, magic numbers, paired calls, xref analysis | `references/symbol-recovery.md` |
 | C/C++ structure recovery, vtables, std::string/vector/map, field type inference | `references/struct-recovery.md` |
 
+## Bundled Tools (`tools/`)
+
+The skill ships ready-to-use companion utilities (all original work, MIT-licensed):
+
+| Tool | Purpose |
+|------|---------|
+| `tools/ida_export_plugin.py` | IDA Pro plugin (Ctrl-Shift-E) — exports the IDB into a `decompile/` directory of plain-text files an agent can read directly |
+| `tools/dex_memory_dumper.js` | Frida agent — dumps DEX from a running Android process via memory scan + ClassLoader traversal |
+| `tools/mcp/` | Setup notes and config snippets for connecting agents to upstream MCP servers (`ida-pro-mcp`, `GhidraMCP`, `r2mcp`) |
+
+See `tools/README.md` for usage details. The `tools/mcp/` directory documents the **live-query workflow** (alternative to file export) — both modes are supported by the methodology files above.
+
 ---
 
 ## Universal First Steps

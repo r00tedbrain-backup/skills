@@ -8,6 +8,7 @@ Script snippets for IDA interactive use and IDALib headless analysis. Use as ref
 - **IDALib**: headless mode introduced in IDA 9.0 — run analysis scripts without opening the IDA GUI
 
 ## Table of Contents
+0. [Pre-check: How is the agent accessing IDA?](#access-modes)
 1. [Common API](#common-api)
 2. [Code Snippets](#snippets)
 3. [Import Table](#imports)
@@ -17,6 +18,66 @@ Script snippets for IDA interactive use and IDALib headless analysis. Use as ref
 7. [Instruction & Block Utilities](#utilities)
 8. [NOP / Patching](#patching)
 9. [IDALib (Headless IDA, 9.0+)](#idalib)
+10. [Export workflow — decompile/ directory pattern](#export-workflow)
+
+---
+
+## 0. Pre-check: How is the agent accessing IDA? {#access-modes}
+
+Before applying scripts from this reference, identify which IDA access mode is in use. Each mode has different capabilities and constraints.
+
+### Mode A — IDA Pro MCP server (live queries)
+The agent has an active MCP connection to a running IDA instance.
+
+- **How to detect**: look for an active `ida-pro` (or equivalently named) MCP connection in the agent's tool list.
+- **Capabilities**: query functions, decompilation, types, names, xrefs in real time. No exported files needed.
+- **Reference**: `mrexodia/ida-pro-mcp` is a community MCP server that exposes IDA Pro to MCP clients.
+- **When to use**: live analysis sessions where the user has IDA Pro open.
+
+### Mode B — Pre-exported decompilation directory
+The agent reads decompilation output from a directory of `.c` files exported beforehand.
+
+- **How to detect**: a `decompile/` directory exists in the working directory containing files named by hex address (e.g., `0x401000.c`).
+- **Capabilities**: read-only analysis of decompiled functions; no live IDA interaction.
+- **Reference**: see [Section 10](#export-workflow) for the directory layout and how to generate it (a stand-alone export script is provided, plus integration with community plugins like `P4nda0s/IDA-NO-MCP`).
+- **When to use**: large-scale or batch analysis, or when the user wants to share IDA state without giving live access.
+
+### Mode C — IDALib headless
+The agent itself runs Python scripts via IDALib (no GUI, no MCP).
+
+- **How to detect**: IDA 9.0+ installed, `idapro` Python module available.
+- **Capabilities**: full programmatic control of analysis without IDA GUI. Scripts use the `ida_*` modules directly.
+- **Reference**: see [Section 9 (IDALib)](#idalib).
+- **When to use**: CI pipelines, batch processing, or scripted analysis.
+
+### Mode D — Direct IDAPython in IDA GUI
+User executes scripts inside an open IDA window (Script Command / `File → Script File…`).
+
+- **How to detect**: user has IDA open and runs scripts manually (the agent provides scripts to copy-paste).
+- **Capabilities**: full IDA scripting API.
+- **When to use**: interactive exploratory analysis.
+
+### If no mode is available
+Prompt the user with the choices:
+
+```
+No IDA access method detected. Choose one of the following:
+
+A) IDA Pro MCP — connect an MCP server (e.g. mrexodia/ida-pro-mcp) so I
+   can query IDA in real time.
+
+B) Pre-exported decompilation directory — open IDA, run an export script
+   (see references/idapython.md §10) or use a community plugin
+   (e.g. P4nda0s/IDA-NO-MCP, Ctrl-Shift-E to export), then point me at
+   the resulting decompile/ directory.
+
+C) IDALib headless — give me a path to the binary and I will run IDAPython
+   scripts directly via IDALib (requires IDA 9.0+ with the idapro Python
+   module installed).
+
+D) Manual IDAPython — I will give you scripts to run inside IDA's GUI;
+   you paste the output back to me.
+```
 
 ---
 
@@ -783,6 +844,203 @@ if __name__ == "__main__":
             if i is not None:
                 print(i)
 ```
+
+---
+
+## 10. Export workflow — `decompile/` directory pattern {#export-workflow}
+
+A common pattern for sharing IDA analysis state with an AI agent is to export every function as an individual `.c` file alongside auxiliary metadata. The agent then reads the directory directly without needing live IDA access.
+
+### Standard directory layout
+
+```
+./
+├── decompile/              # decompiled C code, one file per function
+│   ├── 0x401000.c          # named by function start address (hex)
+│   ├── 0x401234.c
+│   └── ...
+├── decompile_failed.txt    # functions where decompilation failed
+├── decompile_skipped.txt   # functions explicitly skipped (e.g., thunks)
+├── strings.txt             # strings table (address, length, type, content)
+├── imports.txt             # imports (address:function_name per line)
+├── exports.txt             # exports (address:function_name per line)
+└── memory/                 # raw memory hexdumps in 1 MB chunks (optional)
+```
+
+### Function file format
+Each `.c` file in `decompile/` contains a metadata header followed by Hex-Rays output:
+
+```c
+/*
+ * func-name: sub_401000
+ * func-address: 0x401000
+ * callers:  0x402000, 0x403000   // who calls this function
+ * callees:  0x404000, 0x405000   // who this function calls
+ */
+
+int __fastcall sub_401000(int a1, int a2)
+{
+    // decompiled code...
+}
+```
+
+### Stand-alone IDAPython export script
+If you don't want to install a third-party plugin, this script generates the layout above. Run inside IDA (`File → Script File…`):
+
+```python
+# export_decomp.py — stand-alone export of IDA analysis state
+# Run inside IDA: File → Script File… → select this file
+import os
+import idautils
+import idc
+import idaapi
+import ida_hexrays
+import ida_nalt
+import ida_funcs
+
+OUTPUT_DIR = "./decompile_export"   # adjust as needed
+
+def ensure_dir(path):
+    os.makedirs(path, exist_ok=True)
+
+def get_callers(func_ea):
+    return sorted({ref.frm for ref in idautils.XrefsTo(func_ea)
+                   if ida_funcs.get_func(ref.frm)})
+
+def get_callees(func_ea):
+    callees = set()
+    f = ida_funcs.get_func(func_ea)
+    if not f:
+        return []
+    for head in idautils.Heads(f.start_ea, f.end_ea):
+        if idaapi.is_call_insn(head):
+            target = idc.get_operand_value(head, 0)
+            if target != idc.BADADDR:
+                callees.add(target)
+    return sorted(callees)
+
+def export_function(func_ea, out_dir, failed, skipped):
+    name = idc.get_func_name(func_ea)
+    fpath = os.path.join(out_dir, "decompile", f"{func_ea:#x}.c")
+    try:
+        cfunc = ida_hexrays.decompile(func_ea)
+    except Exception as e:
+        failed.append(f"{func_ea:#x}: {e}")
+        return
+    if cfunc is None:
+        skipped.append(f"{func_ea:#x}: decompilation returned None")
+        return
+    callers = get_callers(func_ea)
+    callees = get_callees(func_ea)
+    header = (
+        f"/*\n"
+        f" * func-name: {name}\n"
+        f" * func-address: {func_ea:#x}\n"
+        f" * callers: {', '.join(f'{c:#x}' for c in callers)}\n"
+        f" * callees: {', '.join(f'{c:#x}' for c in callees)}\n"
+        f" */\n\n"
+    )
+    with open(fpath, "w", encoding="utf-8") as f:
+        f.write(header + str(cfunc))
+
+def export_strings(out_dir):
+    with open(os.path.join(out_dir, "strings.txt"), "w", encoding="utf-8") as f:
+        for s in idautils.Strings():
+            f.write(f"{int(s.ea):#x}\t{s.length}\t{s.strtype}\t{str(s)}\n")
+
+def export_imports(out_dir):
+    lines = []
+    nimps = ida_nalt.get_import_module_qty()
+    for i in range(nimps):
+        mod = ida_nalt.get_import_module_name(i) or "<unnamed>"
+        def cb(ea, name, _ord):
+            if name:
+                lines.append(f"{ea:#x}:{mod}!{name}")
+            return True
+        ida_nalt.enum_import_names(i, cb)
+    with open(os.path.join(out_dir, "imports.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+def export_exports(out_dir):
+    lines = []
+    for index, ordinal, ea, name in idautils.Entries():
+        if name:
+            lines.append(f"{ea:#x}:{name}")
+    with open(os.path.join(out_dir, "exports.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+def main():
+    ensure_dir(OUTPUT_DIR)
+    ensure_dir(os.path.join(OUTPUT_DIR, "decompile"))
+
+    failed, skipped = [], []
+    funcs = list(idautils.Functions())
+    print(f"[export] {len(funcs)} functions")
+
+    for i, func_ea in enumerate(funcs):
+        if i % 50 == 0:
+            print(f"  {i}/{len(funcs)}")
+        export_function(func_ea, OUTPUT_DIR, failed, skipped)
+
+    export_strings(OUTPUT_DIR)
+    export_imports(OUTPUT_DIR)
+    export_exports(OUTPUT_DIR)
+
+    with open(os.path.join(OUTPUT_DIR, "decompile_failed.txt"), "w") as f:
+        f.write("\n".join(failed))
+    with open(os.path.join(OUTPUT_DIR, "decompile_skipped.txt"), "w") as f:
+        f.write("\n".join(skipped))
+
+    print(f"[export] done → {OUTPUT_DIR}")
+    print(f"  failed:  {len(failed)}")
+    print(f"  skipped: {len(skipped)}")
+
+if __name__ == "__main__":
+    main()
+```
+
+After running, the agent can analyze the export with simple file reads — no live IDA needed.
+
+### Community plugins for the same workflow
+- **`P4nda0s/IDA-NO-MCP`** — drop-in plugin: copy `INP.py` into IDA's plugins directory, then press `Ctrl-Shift-E` to export. Produces the same layout described above.
+- **`mrexodia/ida-pro-mcp`** — alternative MCP-based approach (no file export, live querying).
+
+### Consuming the export from the agent
+Once the directory exists, simple Python is enough to walk it:
+
+```python
+# read_export.py — agent-side helper
+import os, re, glob
+
+ROOT = "./decompile_export"
+
+def load_function(addr_hex):
+    """Load a single function file by address (e.g. '0x401000')."""
+    path = os.path.join(ROOT, "decompile", f"{addr_hex}.c")
+    with open(path, "r", encoding="utf-8") as f:
+        text = f.read()
+    # Parse metadata header
+    meta = {}
+    for line in text.splitlines()[:8]:
+        m = re.match(r"\s*\*\s*([\w-]+):\s*(.*)", line)
+        if m:
+            meta[m.group(1)] = m.group(2).strip()
+    return meta, text
+
+def list_functions():
+    return [os.path.basename(p)[:-2]
+            for p in glob.glob(os.path.join(ROOT, "decompile", "*.c"))]
+
+def load_imports():
+    with open(os.path.join(ROOT, "imports.txt")) as f:
+        return [line.strip().split(":", 1) for line in f if line.strip()]
+
+# Example: print metadata for a function
+meta, code = load_function("0x401000")
+print(meta)              # {'func-name': 'sub_401000', 'func-address': '0x401000', ...}
+```
+
+Pair this with `references/symbol-recovery.md` and `references/struct-recovery.md` — both methodologies expect to read functions and metadata from this exact directory layout (or via MCP equivalent).
 
 ---
 

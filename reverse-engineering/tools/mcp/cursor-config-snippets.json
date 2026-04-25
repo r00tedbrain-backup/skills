@@ -1,0 +1,16 @@
+{
+  "_comment": "Drop-in snippets for Cursor MCP config. Original work — MIT.",
+  "_location": "Cursor → Settings → MCP → Edit JSON",
+  "_usage": "Merge under your existing top-level mcpServers key. Adapt URLs/ports if your servers print different ones.",
+
+  "mcpServers": {
+    "ida-pro": {
+      "url": "http://127.0.0.1:13338/sse",
+      "transport": "sse"
+    },
+    "ghidra": {
+      "url": "http://127.0.0.1:8080/sse",
+      "transport": "sse"
+    }
+  }
+}

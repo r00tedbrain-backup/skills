@@ -1,0 +1,23 @@
+{
+  "_comment": "Drop-in snippets for Claude Code MCP config. Original work — MIT.",
+  "_location_macos": "~/Library/Application Support/Claude/mcp.json",
+  "_location_linux": "~/.config/claude/mcp.json",
+  "_location_windows": "%APPDATA%\\Claude\\mcp.json",
+  "_usage": "Merge the entries you want under your existing top-level mcpServers key. Adapt URLs/ports if your servers print different ones.",
+
+  "mcpServers": {
+    "ida-pro": {
+      "transport": "sse",
+      "url": "http://127.0.0.1:13338/sse"
+    },
+    "ghidra": {
+      "transport": "sse",
+      "url": "http://127.0.0.1:8080/sse"
+    },
+    "r2": {
+      "transport": "stdio",
+      "command": "r2mcp",
+      "args": []
+    }
+  }
+}

@@ -38,10 +38,20 @@ npx skills add r00tedbrain-backup/skills
 | **Firmware & IoT** | `references/firmware-embedded.md` | binwalk, QEMU emulation, JTAG/UART, U-Boot |
 | **Anti-Cheat RE** | `references/anticheat-re.md` | EAC, BattlEye, Vanguard, FACEIT, VAC, kernel AC |
 | **Ghidra Scripting** | `references/ghidra-scripting.md` | Python/Java scripts, headless mode, custom analyzers |
-| **IDAPython & IDALib** | `references/idapython.md` | 800+ lines of scripts: common API, Hex-Rays, Appcall, OLLVM, headless batch |
+| **IDAPython & IDALib** | `references/idapython.md` | 800+ lines of scripts: common API, Hex-Rays, Appcall, OLLVM, headless batch, IDA access modes (MCP / file export / IDALib) |
 | **Unicorn Emulation** | `references/unicorn-emulation.md` | Function-level emulation, JNI stubbing, syscall sim, decryption |
 | **Symbol Recovery** | `references/symbol-recovery.md` | Magic number catalog, paired call patterns, xref analysis |
 | **Struct Recovery** | `references/struct-recovery.md` | C++ vtables, std::string/vector/map layouts, field type inference |
+
+### Bundled Tools (`tools/`)
+
+| Tool | Purpose |
+|------|---------|
+| `tools/ida_export_plugin.py` | IDA Pro plugin (Ctrl-Shift-E) — exports IDB to a `decompile/` directory of plain-text files for AI agents |
+| `tools/dex_memory_dumper.js` | Frida agent — dumps DEX from running Android apps (memory scan + ClassLoader traversal) |
+| `tools/mcp/` | Setup docs + JSON snippets for connecting agents to MCP servers (`ida-pro-mcp`, `GhidraMCP`, `r2mcp`) |
+
+All bundled tools are **original MIT-licensed code**. We link to upstream MCP servers and plugins instead of redistributing them.
 
 ### Triggers
 
@@ -58,28 +68,39 @@ This skill auto-loads when Claude detects tasks involving:
 
 ```
 skills/
+├── LICENSE                                # MIT
 ├── README.md
 └── reverse-engineering/
-    ├── SKILL.md                          # Main skill definition
-    └── references/
-        ├── static-analysis.md
-        ├── dynamic-debugging.md
-        ├── android-re.md
-        ├── ios-re.md
-        ├── macos-kernel-re.md
-        ├── windows-re.md
-        ├── frida.md
-        ├── managed-code-re.md
-        ├── malware-analysis.md
-        ├── exploit-dev.md
-        ├── protocol-re.md
-        ├── firmware-embedded.md
-        ├── anticheat-re.md
-        ├── ghidra-scripting.md
-        ├── idapython.md
-        ├── unicorn-emulation.md
-        ├── symbol-recovery.md
-        └── struct-recovery.md
+    ├── SKILL.md                           # Main skill definition
+    ├── references/                        # 18 methodology modules
+    │   ├── static-analysis.md
+    │   ├── dynamic-debugging.md
+    │   ├── android-re.md
+    │   ├── ios-re.md
+    │   ├── macos-kernel-re.md
+    │   ├── windows-re.md
+    │   ├── frida.md
+    │   ├── managed-code-re.md
+    │   ├── malware-analysis.md
+    │   ├── exploit-dev.md
+    │   ├── protocol-re.md
+    │   ├── firmware-embedded.md
+    │   ├── anticheat-re.md
+    │   ├── ghidra-scripting.md
+    │   ├── idapython.md
+    │   ├── unicorn-emulation.md
+    │   ├── symbol-recovery.md
+    │   └── struct-recovery.md
+    └── tools/                             # Bundled MIT-licensed utilities
+        ├── README.md
+        ├── ida_export_plugin.py
+        ├── dex_memory_dumper.js
+        └── mcp/
+            ├── README.md
+            ├── ida-pro-mcp.md
+            ├── ghidra-mcp.md
+            ├── claude-config-snippets.json
+            └── cursor-config-snippets.json
 ```
 
 ## License
